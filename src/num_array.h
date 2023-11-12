@@ -66,8 +66,6 @@ namespace tb::math {
       constexpr num_array(const T& x);
       constexpr num_array(const std::initializer_list<sub_array>& init_list);
 
-      //constexpr num_array(num_array&& x) : data_(std::move(x.data_)) { }
-
       constexpr auto& operator[](size_type i) const noexcept { return data_[i]; }
       constexpr auto& operator[](size_type i)       noexcept { return data_[i]; }
 
@@ -186,8 +184,6 @@ namespace tb::math {
       constexpr num_array(const T& x);
       constexpr num_array(const std::initializer_list<T>&);
 
-      //constexpr num_array(num_array&& x) : data_(std::move(x.data_)) {}
-
       constexpr auto& operator[](size_type i) const noexcept { return data_[i]; }
       constexpr auto& operator[](size_type i)       noexcept { return data_[i]; }
 
@@ -221,11 +217,6 @@ namespace tb::math {
       { return apply([&](T& x){ x *= rhs; }); }
       constexpr auto& operator/=(const T& rhs) 
       { return apply([&](T& x){ x /= rhs; }); }
-
-      // NOTE: test code below - could be more efficient
-      // requires has_multiplicative_inverse<T>
-      //constexpr auto& operator/=(const value_type& rhs)
-      //{ return operator*=(1/rhs); }
 
       constexpr auto& operator+=(const num_array& rhs)
       { return apply(rhs, [](T& x, const T& y){ x += y; }); }
