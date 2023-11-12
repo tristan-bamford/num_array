@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TB_MATH_NUM_ARRAY_H
+#define TB_MATH_NUM_ARRAY_H
 
 #include <concepts>
 #include <algorithm>
@@ -411,3 +412,4 @@ namespace tb::math {
       return result;
     }
 } // namespace tb::math
+#endif//TB_MATH_NUM_ARRAY_H
