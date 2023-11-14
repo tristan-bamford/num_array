@@ -66,6 +66,10 @@ namespace tb::math {
       constexpr num_array(const T& x);
       constexpr num_array(const std::initializer_list<sub_array>& init_list);
 
+      //constexpr num_array(num_array&& array) noexcept : data_(std::move(array.data_)) { }
+      //constexpr num_array(const num_array& array) noexcept : data_(array.data_) { }
+
+
       constexpr auto& operator[](size_type i) const noexcept { return data_[i]; }
       constexpr auto& operator[](size_type i)       noexcept { return data_[i]; }
 
@@ -183,6 +187,8 @@ namespace tb::math {
           requires std::common_with<T, U>;
       constexpr num_array(const T& x);
       constexpr num_array(const std::initializer_list<T>&);
+      //constexpr num_array(num_array&& array) noexcept : data_(std::move(array.data_)) { }
+      //constexpr num_array(const num_array& x) { std::copy(x.begin(), x.end(), begin()); }
 
       constexpr auto& operator[](size_type i) const noexcept { return data_[i]; }
       constexpr auto& operator[](size_type i)       noexcept { return data_[i]; }
@@ -248,8 +254,16 @@ namespace tb::math {
     constexpr 
     num_array<T, N>::num_array(const std::initializer_list<T>& init_list)
     {
-      assert(init_list.size() == N);
-      std::copy(init_list.begin(), init_list.end(), begin());
+      //if (init_list.size() == 0) {
+        //std::fill(begin(), end(), static_cast<T>(0));
+      
+      if (init_list.size() == 1) {
+        std::fill(begin(), end(),(*init_list.begin()));
+      } else if (init_list.size() == N) {
+        std::copy(init_list.begin(), init_list.end(), begin());
+      } else {
+        throw std::invalid_argument("Incorrect number of arguments");
+      }
     }
   
   template<Number T, std::size_t N>
