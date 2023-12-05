@@ -15,14 +15,14 @@ namespace tb::math {
   // A Number is an element of a set for which the operations +,-,* and / are
   // defined.
   // NOTE: The requirement for the definition of additive and multiplicative 
-  // inverses is not necessary. However, in the case of the multiplicative 
-  // inverse, optimizations can be made in some division algorithms if this 
+  // identities is not necessary. However, in the case of the multiplicative 
+  // identity, optimizations can be made in some division functions if this 
   // value is known.
   template<typename T>
     concept Number = requires(T x)
     {
-      x = 0; // additive inverse
-      x = 1; // multiplicative inverse
+      x = 0; // additive identity
+      x = 1; // multiplicative identity
 
       x += x; // field operations
       x -= x;
@@ -65,10 +65,6 @@ namespace tb::math {
           requires std::common_with<T, U>;
       constexpr num_array(const T& x);
       constexpr num_array(const std::initializer_list<sub_array>& init_list);
-
-      //constexpr num_array(num_array&& array) noexcept : data_(std::move(array.data_)) { }
-      //constexpr num_array(const num_array& array) noexcept : data_(array.data_) { }
-
 
       constexpr auto& operator[](size_type i) const noexcept { return data_[i]; }
       constexpr auto& operator[](size_type i)       noexcept { return data_[i]; }
@@ -187,8 +183,6 @@ namespace tb::math {
           requires std::common_with<T, U>;
       constexpr num_array(const T& x);
       constexpr num_array(const std::initializer_list<T>&);
-      //constexpr num_array(num_array&& array) noexcept : data_(std::move(array.data_)) { }
-      //constexpr num_array(const num_array& x) { std::copy(x.begin(), x.end(), begin()); }
 
       constexpr auto& operator[](size_type i) const noexcept { return data_[i]; }
       constexpr auto& operator[](size_type i)       noexcept { return data_[i]; }
@@ -408,12 +402,14 @@ namespace tb::math {
       return !(lhs == rhs);
     }
 
+  // Returns a num_array where elements are the absolute value of the 
+  // corresponding elements of v
   template<Number T, std::size_t M, std::size_t... N>
     constexpr auto
     abs(const num_array<T, M, N...>& v)
     {
       num_array<T, M, N...> result;
-      result.apply(v, [](T& x, const T& y){ x = -y; });
+      result.apply(v, [](T& x, const T& y){ x = std::abs(y); });
       return result;
     }
 } // namespace tb::math
