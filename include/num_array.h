@@ -5,12 +5,10 @@
 #include <algorithm>
 #include <cassert>
 
-#include <valarray>
-
 namespace tb::math {
 
   template<typename T>
-    concept Index_type = std::convertible_to<std::size_t, T>;
+    concept Index_type = std::convertible_to<T, std::size_t>;
 
   // A Number is an element of a set for which the operations +,-,* and / are
   // defined.
