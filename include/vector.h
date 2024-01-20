@@ -122,5 +122,14 @@ namespace tb::math {
     {
       return v * (dot_product(v, w) / dot_product(v, v));
     }
+
+  // Reflection
+  // Return the reflection of vector v about a surface normal n.
+  template<Number T1, Number T2, std::size_t N>
+    [[nodiscard]] constexpr auto
+    reflection(const num_array<T1, N>& n, const num_array<T2, N>& v)
+    {
+      return v - (n * (2 * dot_product(n, v)));
+    }
 }
 #endif//TB_MATH_NUM_ARRAY_VECTOR_H
