@@ -1,4 +1,4 @@
-#include "../src/vector.h"
+#include "vector.h"
 
 using tb::math::Number;
 
