@@ -1,5 +1,5 @@
 #pragma once
 
 #include <cstdlib>
-#include "../src/num_array.h"
-#include "../src/vector.h"
+#include "../include/num_array.h"
+#include "../include/vector.h"
