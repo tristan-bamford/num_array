@@ -4,6 +4,7 @@
 #include <concepts>
 #include <algorithm>
 #include <cassert>
+#include <stdexcept>
 
 namespace tb::math {
 
